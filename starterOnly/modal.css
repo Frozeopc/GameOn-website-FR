@@ -188,6 +188,21 @@ main {
   margin: 15px auto;
 }
 
+.modal-body2 {
+  height: 760px;
+  border-radius: 8px;
+  display: none;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  text-align: center;
+  font-family: DM Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 142.6%;
+  padding: 10%;
+}
+
 label {
   font-family: var(--font-default);
   font-size: 17px;
@@ -224,6 +239,9 @@ input {
   opacity: 1;
 }
 .formData .text-control[data-error-visible="true"] {
+  border: 2px solid #e54858;
+}
+.formData .checkbox-input[data-error-visible="true"] .checkbox-label .checkbox-icon {
   border: 2px solid #e54858;
 }
 /* 
