@@ -1,6 +1,6 @@
 function editNav() {
   var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
+  if(x.className === "topnav") {
     x.className += " responsive";
   } else {
     x.className = "topnav";
@@ -10,13 +10,21 @@ function editNav() {
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
-var modalBtnclose = document.getElementById("close");
-var modalBody = document.querySelector(".modal-body");
-var modalBody2 = document.querySelector(".modal-body2");
-var modalBtnclose2 = document.querySelector(".btnclose");
+const modalBtnclose = document.getElementById("close");
+const modalBody = document.querySelector(".modal-body");
+const modalBody2 = document.querySelector(".modal-body2");
+const modalBtnclose2 = document.querySelector(".btnclose");
+const inputFirstName = document.getElementById("firstName");
+const inputLastName = document.getElementById("lastName");
+const inputEmail = document.getElementById("email");
+const inputBirthdate = document.getElementById("birthdate");
+const inputNumber = document.getElementById("quantity");
+const radioLocations = document.getElementsByName("location");
+const inputCondition = document.getElementById("checkbox1");
+const formSubmit = document.getElementsByName("reserve")[0];
 // launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal)); 
+// close modal
 modalBtnclose.addEventListener("click", function(){
   closeModal();
 });
@@ -27,33 +35,10 @@ modalBtnclose2.addEventListener("click", function(){
 function launchModal() {
   modalbg.style.display = "block";
 }
+// close modal form
 function closeModal() {
   modalbg.style.display = "none";
 }
-
-
-// fonction vérification input prénom et nom de famille
-  // vérification non vide, que des lettres 
-  // renvoi un text message erreur 
-  // mettre contour rouge
-// vérification first/last Name/email
-var inputFirstName = document.getElementById("firstName");
-inputFirstName.addEventListener("input", function(){
-  checkText(inputFirstName, "^[a-zA-Z]{2,}$", "errorFirstName", "Veuillez renseigner un prénom");
-
-})
-
-var inputLastName = document.getElementById("lastName"); 
-inputLastName.addEventListener("input", function(){
-  checkText(inputLastName, "^[a-zA-Z]{2,}$", "errorLastName", "Veuillez renseigner un nom");
-   
-})
-
-
-var inputEmail = document.getElementById("email");
-inputEmail.addEventListener("input",function(){  
-  checkText(inputEmail,"^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$", "errorEmail", "Veuillez reseigner un email")
-})
 
 // idHtml= id de l'élément html où va etre inséré le message
 // messagestr = texte erreur
@@ -70,6 +55,24 @@ function displayError(idHtml, messagestr, input, displayOnOff ){
     input.setAttribute('data-error-visible', 'false');
   }    
 }
+
+// fonction vérification input prénom, nom de famille et Email
+  // vérification non vide et regex
+  // renvoi un text message erreur 
+
+
+inputFirstName.addEventListener("input", function(){
+  checkText(inputFirstName, "^[a-zA-Z]{2,}$", "errorFirstName", "Veuillez renseigner un prénom");
+})
+ 
+inputLastName.addEventListener("input", function(){
+  checkText(inputLastName, "^[a-zA-Z]{2,}$", "errorLastName", "Veuillez renseigner un nom");   
+})
+
+inputEmail.addEventListener("input",function(){  
+  checkText(inputEmail,"^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$", "errorEmail", "Veuillez reseigner un email")
+})
+
 
 function checkText(input,regexstr, idHtml, textError){
   var value = input.value;
@@ -88,14 +91,11 @@ function checkText(input,regexstr, idHtml, textError){
 }
 
 // fonction vérification date de naissance
-  // validation non vide
-  // renvoi un text message erreur
-var inputBirthdate = document.getElementById("birthdate");
+  // validation non vide/ vérification date de naissance + 18 ans
+  // renvoi un texte message erreur
 inputBirthdate.addEventListener("input",function(){
-  checkBirth(inputBirthdate);
-     
+ checkBirth(inputBirthdate);     
 })
-
 
 function checkBirth(input){
   if(input.value=== ""){
@@ -117,13 +117,10 @@ function checkBirth(input){
   }
   
 } 
-
-
-
 // fonction vérification nb de tournoi (chiffres)
   // validation non vide et que des chiffres
   // renvoi un text message erreur
-var inputNumber = document.getElementById("quantity");
+
 inputNumber.addEventListener("input",function(){
   checkNum(inputNumber);
 })
@@ -138,7 +135,6 @@ function checkNum(input){
   }else if( !regex.test(value)){
     displayError("errorQuantity", "Veuillez renseigner un nombre valide", input, true);
     return false;
-
   }
   else{
     displayError("errorQuantity", "Veuillez renseigner un nombre valide", input, false);
@@ -146,11 +142,9 @@ function checkNum(input){
   }
 }
 
-
 // fonction vérification radio ville tournoi
   // validation au moins une option cochée
   // renvoi un text message erreur
-var radioLocations = document.getElementsByName("location");
 for(var i = 0; i < radioLocations.length; i++){
   radioLocations[i].addEventListener('change', function(){
     if(this.checked){
@@ -169,12 +163,10 @@ function checkLocation(radioLocations) {
     return false;
 }
 
-
-
 // fonction vérification option coché condition utilisation
   // validation option coché 
   // renvoi un text message erreur
-var inputCondition = document.getElementById("checkbox1");
+
 inputCondition.addEventListener("input",function(){
   checkCondition(inputCondition);
 })
@@ -195,18 +187,17 @@ function checkCondition(input){
   return checked;
 }
 
-
 // A la validation du formulaire vérifié tous les inputs (return true) avant validation du formulaire
   // si return false le form ne s'envoie pas
   function validate(){
-//faire variable pour chaque chek avec if return true, else return false
-     var checkIdentity = checkText(inputFirstName, "^[a-zA-Z]{2,}$", "errorFirstName", "Veuillez renseigner un prénom ") 
-     var checkLastName = checkText(inputLastName,"^[a-zA-Z]{2,}$","errorLastName","Veuillez renseigner un nom") 
-     var checkEmail = checkText(inputEmail,"^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$","errorEmail", "Veuillez reseigner un email") 
-     var checkDate = checkBirth(inputBirthdate) 
-     var checkToornament =  checkNum(inputNumber) 
-     var checkRadio = checkLocation(radioLocations) 
-     var checkform = checkCondition(inputCondition)
+
+     var checkIdentity = checkText(inputFirstName, "^[a-zA-Z]{2,}$", "errorFirstName", "Veuillez renseigner un prénom "); 
+     var checkLastName = checkText(inputLastName,"^[a-zA-Z]{2,}$","errorLastName","Veuillez renseigner un nom"); 
+     var checkEmail = checkText(inputEmail,"^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$","errorEmail", "Veuillez reseigner un email"); 
+     var checkDate = checkBirth(inputBirthdate); 
+     var checkToornament =  checkNum(inputNumber); 
+     var checkRadio = checkLocation(radioLocations); 
+     var checkform = checkCondition(inputCondition);
   
     if(checkIdentity && checkLastName && checkEmail && checkDate && checkToornament && checkRadio && checkform){
         return true;
@@ -214,24 +205,14 @@ function checkCondition(input){
         return false;
       }
 }
-
-    
   
-
-  var form = document.getElementsByName("reserve")[0];
-    form.addEventListener("submit",function(event){
-    event.preventDefault();
-    if (validate()){
-        modalBody.style.display = "none";        
-        modalBody2.style.display = "flex";        
-        console.log("formulaire validé");
-        
-    }
-    else {
-        console.log("formulaire non valide");
-        
-    }
-  },false);
+formSubmit.addEventListener("submit",function(event){
+  event.preventDefault();
+  if (validate()){
+      modalBody.style.display = "none";        
+      modalBody2.style.display = "flex";            
+  }  
+},false);
     //si return true apparition message remerciement d'inscription
     //dispparition formulaire/apparition message felicitation + button fermer modal
     //alert = style pop up apparaissant sur mon navigateur
