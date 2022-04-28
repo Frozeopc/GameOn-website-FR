@@ -199,32 +199,24 @@ function checkCondition(input){
 // A la validation du formulaire vérifié tous les inputs (return true) avant validation du formulaire
   // si return false le form ne s'envoie pas
   function validate(){
-
-    if(
-      checkText(inputFirstName, "^[a-zA-Z]{2,}$", "errorFirstName", "Veuillez renseigner un prénom ") && 
-      checkText(inputLastName,"^[a-zA-Z]{2,}$","errorLastName","Veuillez renseigner un nom") &&
-      checkText(inputEmail,"^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$","errorEmail", "Veuillez reseigner un email") &&
-      checkBirth(inputBirthdate) &&
-      checkNum(inputNumber) &&
-      checkLocation(radioLocations) &&
-      checkCondition(inputCondition)
-    ) {       
-      return true;
-    }else{
-      checkText(inputFirstName, "^[a-zA-Z]{2,}$", "errorFirstName", "Veuillez renseigner un prénom ");
-      checkText(inputLastName,"^[a-zA-Z]{2,}$","errorLastName","Veuillez renseigner un nom"); 
-      checkText(inputEmail,"^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$","errorEmail", "Veuillez reseigner un email");
-      checkBirth(inputBirthdate);
-      checkNum(inputNumber);
-      checkLocation(radioLocations);
-      checkCondition(inputCondition);
-      return false;
-    } 
-    
-    
+//faire variable pour chaque chek avec if return true, else return false
+     var checkIdentity = checkText(inputFirstName, "^[a-zA-Z]{2,}$", "errorFirstName", "Veuillez renseigner un prénom ") 
+     var checkLastName = checkText(inputLastName,"^[a-zA-Z]{2,}$","errorLastName","Veuillez renseigner un nom") 
+     var checkEmail = checkText(inputEmail,"^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$","errorEmail", "Veuillez reseigner un email") 
+     var checkDate = checkBirth(inputBirthdate) 
+     var checkToornament =  checkNum(inputNumber) 
+     var checkRadio = checkLocation(radioLocations) 
+     var checkform = checkCondition(inputCondition)
+  
+    if(checkIdentity && checkLastName && checkEmail && checkDate && checkToornament && checkRadio && checkform){
+        return true;
+      }else{
+        return false;
+      }
+}
 
     
-  }
+  
 
   var form = document.getElementsByName("reserve")[0];
     form.addEventListener("submit",function(event){
